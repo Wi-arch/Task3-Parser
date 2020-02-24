@@ -36,8 +36,18 @@ public class CommonParser implements Parser {
 		Component component = new Composite(componentType);
 		Matcher matcher = Pattern.compile(componentType.getRegex()).matcher(string);
 		while (matcher.find()) {
-			component.addComponent(nextParser.parseString(matcher.group()));
+			handleNextGroup(component, matcher.group(), nextParser);
 		}
 		return component;
+	}
+
+	private void handleNextGroup(Component component, String nextGroup, Parser nextParser) throws ServiceException {
+		if (nextParser instanceof SymbolParser) {
+			for (int i = 0; i < nextGroup.length(); i++) {
+				component.addComponent(nextParser.parseString(nextGroup.charAt(i) + ""));
+			}
+		} else {
+			component.addComponent(nextParser.parseString(nextGroup));
+		}
 	}
 }
