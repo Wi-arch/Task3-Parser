@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import by.training.parser.entity.Component;
 import by.training.parser.exception.InvalidExpressionException;
 import by.training.parser.exception.ServiceException;
-import static by.training.parser.util.ExpressionCalculator.calculateExpression;;
+import static by.training.parser.util.ExpressionCalculator.calculateExpression;
 
 public class ExpressionParser implements Parser {
 
@@ -16,10 +16,6 @@ public class ExpressionParser implements Parser {
 	private static final String MATH_EXPRESSION_REGEX = "\\s([(]?(~|-)?\\d+[)]?(((\\+|-|\\*|/|%|<<|>>|>>>|&|\\^|\\|)[(]?\\d+)?([.]\\d+)?[)]?)*?)\\s";
 	private static final int EXPRESSION_GROUP_NUMBER = 1;
 	private Parser nextParser;
-
-	public ExpressionParser() {
-		nextParser = new SymbolParser();
-	}
 
 	public ExpressionParser(Parser nextParser) throws ServiceException {
 		if (nextParser == null) {
